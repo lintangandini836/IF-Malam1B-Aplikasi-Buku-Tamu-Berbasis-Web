@@ -1,17 +1,3 @@
-<?php
-// BARIS BARU: Mulai sesi di baris paling atas
-session_start(); 
-include("server.php");
-// Cek apakah variabel session 'logged_in' ada dan nilainya TRUE
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== TRUE) {
-    // Jika tidak, alihkan pengguna kembali ke halaman depan
-    header("Location: front-end.php");
-    exit();
-}
-// Ambil nama admin dari sesi untuk digunakan nanti
-$nama_admin_login = isset($_SESSION['nama_admin']) ? $_SESSION['nama_admin'] : '';
-
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -33,7 +19,7 @@ $nama_admin_login = isset($_SESSION['nama_admin']) ? $_SESSION['nama_admin'] : '
             </div>
             <div class="header-right">
                 <i class="fas fa-user-circle"></i>
-                <span><?php echo ($nama_admin_login); ?></span>
+                <span>Admin, XXXXXX</span>
             </div>
         </header>
 
@@ -54,13 +40,13 @@ $nama_admin_login = isset($_SESSION['nama_admin']) ? $_SESSION['nama_admin'] : '
                 <div id="buku-tamu" class="page-content active-page">
                     <h1>Sistem Pencatatan Kunjungan Polibatam</h1>
                     <div class="data-actions">
-                        <button class="add-button" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i class="fas fa-plus"></i> Tambah Data</button>
+                        <button class="add-button"><i class="fas fa-plus"></i> Tambah Data</button>
                         <div class="search-box">
                             <input type="text" placeholder="Search:">
                             <i class="fas fa-search"></i>
                         </div>
                     </div>
-                    <div class="scroll" style="height: 270px; overflow:scroll;">
+
                     <div class="table-container">
                         <table>
                             <thead>
@@ -75,37 +61,30 @@ $nama_admin_login = isset($_SESSION['nama_admin']) ? $_SESSION['nama_admin'] : '
                                 </tr>
                             </thead>
                             <tbody>
-<?php
-include 'server.php';
-$query = mysqli_query($conn, "SELECT * FROM data_pengunjung");
-while ($data = mysqli_fetch_assoc($query)) {
-?>
-<tr>
-<td><?php echo $data['tanggal']?></td>
-<td><?php echo $data['nama']; ?></td>
-<td><?php echo $data['instansi']; ?></td>
-<td><?php echo $data['tujuan']; ?></td>
-<td><?php echo $data['kedatangan']; ?></td>
-<td><?php echo $data['kepulangan']; ?></td>
-<td>
-<a href="edit_data.php?id=<?php echo $data['id']; ?>" class="action-btn edit-btn" title="Edit Data"><i class="fas fa-edit"></i></a>
-<a href="hapus_data.php?id=<?php echo $data['id']; ?>" 
-       onclick="return confirm('Apakah Anda yakin ingin menghapus data <?php echo htmlspecialchars($data['nama']); ?>?');" 
-       class="action-btn delete-btn" title="Hapus Data">
-        <i class="fas fa-trash-alt"></i>
-    </a>
-</td>
-</tr>
-<?php
-}
-?>                              
-</tbody>
-</table>
-</div>
-</div>
+                                <tr>
+                                    <td>12/10/2025</td>
+                                    <td>Alvin Farah Rohid Tanjung</td>
+                                    <td>SMAN 2 Batam</td>
+                                    <td>Pendaftaran KIP</td>
+                                    <td>12:00</td>
+                                    <td>13:00</td>
+                                    <td>
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                
+                                </tbody>
+                        </table>
+                    </div>
                     
                     <div class="pagination">
                         <p class="data-info">Data diatas adalah data tamu diakhir, diurutkan tamu yang terakhir mengisi</p>
+                        <div>
+                            <button>Previous</button>
+                            <span class="current-page">1</span>
+                            <button>Next</button>
+                        </div>
                     </div>
                 </div> 
 
@@ -181,42 +160,7 @@ while ($data = mysqli_fetch_assoc($query)) {
       </div>
       <div class="modal-footer">
         <a><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button></a>
-        <a href="logout.php"><button type="button" class="btn btn-success">Keluar</button></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--tambah data-->
-<div class="modal fade" id="tambahDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Pengisian Data</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="Pengisian_data.php" method="post">
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
-            </div><div class="mb-3">
-                <label for="instansi" class="form-label">Asal Instansi</label>
-                <input type="text" class="form-control" id="instansi" name="instansi" required>
-            </div><div class="mb-3">
-                <label for="tujuan" class="form-label">Tujuan</label>
-                <input type="text" class="form-control" id="tujuan" name="tujuan" required>
-            </div>
-            <div class="mb-3">
-                <label for="kedatangan" class="form-label">Waktu Kedatangan</label>
-                <input type="time" class="form-control" id="kedatangan" name="kedatangan" required>
-            </div>
-                        <div class="mb-3">
-                <label for="kepulangan" class="form-label">Waktu Kepulangan</label>
-                <input type="time" class="form-control" id="kepulangan" name="kepulangan" required>
-            </div>
-            <button type="submit" class="btn btn-primary">simpan</button>
-        </form>
+        <a href="front-end.html"><button type="button" class="btn btn-success">Keluar</button></a>
       </div>
     </div>
   </div>
