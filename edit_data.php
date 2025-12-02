@@ -2,7 +2,7 @@
 session_start();
 include "server.php"; 
 
-// Pengecekan keamanan: Hanya admin yang login yang boleh mengakses
+// Hanya admin yang login yang boleh mengakses
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== TRUE) {
     header("Location: front-end.php");
     exit();
