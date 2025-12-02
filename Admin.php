@@ -140,12 +140,28 @@
                   </div>
       
                   
-                </div>
-                <div id="agenda" class="page-content">
-                    <h1>Agenda</h1>
-                    <p>Konten untuk Agenda akan dimuat di sini.</p>
-                </div>
-                
+               <div id="laporan" class="page-content">
+                    <h1>Laporan Kunjungan Tamu</h1>
+
+                    <div class="report-form-container">
+                        <form action="generate_report.php" method="GET" class="report-form-flex">
+                            
+                            <div class="form-group date-field">
+                                <label for="date-from">Dari Tanggal</label>
+                                <input type="text" id="date-from" name="date_from" class="form-control datepicker" placeholder="Pilih Tanggal Mulai" required>
+                            </div>
+
+                            <div class="form-group date-field">
+                                <label for="date-to">Sampai Tanggal</label>
+                                <input type="text" id="date-to" name="date_to" class="form-control datepicker" placeholder="Pilih Tanggal Akhir" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary generate-button">
+                                <i class="fas fa-file-export"></i> Cetak Laporan
+                            </button>
+                        </form>
+                    </div> 
+                   
             </main>
         </div>
         <!--Modal keluar-->
@@ -174,4 +190,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
