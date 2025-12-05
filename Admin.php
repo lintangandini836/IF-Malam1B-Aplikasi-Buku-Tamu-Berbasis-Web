@@ -34,54 +34,6 @@ $sql_month = "SELECT COUNT(*) AS count_month FROM data_pengunjung
 $result_month = mysqli_query($conn, $sql_month);
 $row_month = mysqli_fetch_assoc($result_month);
 $count_month = $row_month['count_month'];
-// --- PENANGANAN GANTI KATA SANDI ---
-$password_error = ''; // Variabel untuk menyimpan pesan error
-$password_success = ''; // Variabel untuk menyimpan pesan sukses
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
-    $sandi_lama = $_POST['sandi_lama'];
-    $sandi_baru = $_POST['sandi_baru'];
-    $konfirmasi_sandi = $_POST['konfirmasi_sandi'];
-    $id_admin = $_SESSION['id_admin']; // Asumsi Anda menyimpan ID admin saat login
-
-    // 1. Ambil kata sandi lama dari database
-    $sql_admin = "SELECT password FROM data_admin WHERE id = '$id_admin'";
-    $result_admin = mysqli_query($conn, $sql_admin);
-    $row_admin = mysqli_fetch_assoc($result_admin);
-    $hashed_password = $row_admin['password'];
-
-    // 2. Verifikasi Kata Sandi Lama
-    if (!password_verify($sandi_lama, $hashed_password)) {
-        $password_error = "Kata Sandi Lama Salah.";
-    } 
-    // 3. Validasi Kata Sandi Baru
-    else if (strlen($sandi_baru) < 8) {
-        $password_error = "Kata Sandi Baru harus minimal 8 karakter.";
-    }
-    else if (!preg_match('/[A-Z]/', $sandi_baru)) {
-        $password_error = "Kata Sandi Baru harus mengandung setidaknya satu huruf kapital.";
-    }
-    else if ($sandi_baru !== $konfirmasi_sandi) {
-        $password_error = "Kata Sandi Baru dan Konfirmasi Kata Sandi tidak cocok.";
-    } 
-    else {
-        // 4. Update Kata Sandi Baru ke Database
-        $new_hashed_password = password_hash($sandi_baru, PASSWORD_DEFAULT);
-        $sql_update = "UPDATE data_admin SET password = '$new_hashed_password' WHERE id = '$id_admin'";
-        
-        if (mysqli_query($conn, $sql_update)) {
-            $password_success = "Kata Sandi berhasil diperbarui! Silakan masuk kembali.";
-            // Pilihan: Langsung logout setelah ganti sandi
-            // session_unset();
-            // session_destroy();
-            // header("Location: front-end.php");
-            // exit();
-        } else {
-            $password_error = "Gagal memperbarui Kata Sandi: " . mysqli_error($conn);
-        }
-    }
-}
-// --- AKHIR PENANGANAN GANTI KATA SANDI ---
 
 ?>
 <!DOCTYPE html>
@@ -221,49 +173,14 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                 </div> 
 
 
-               <div id="ganti-sandi" class="page-content">
-                   <h1>Ganti Kata Sandi</h1>
-                   <div class="form-card">
-                       <form method="POST" action="Admin.php">
-                           <input type="hidden" name="change_password" value="1">
-
-                           <?php if (!empty($password_success)): ?>
-                               <div class="alert alert-success" role="alert" style="color: green; font-weight: bold; margin-bottom: 15px;">
-                    <?php echo $password_success; ?>
-                </div>
-            <?php endif; ?>
-            <?php if (!empty($password_error)): ?>
-                <div class="alert alert-danger" role="alert" style="color: red; font-weight: bold; margin-bottom: 15px;">
-                    <?php echo $password_error; ?>
-                </div>
-            <?php endif; ?>
-            
-            <div class="form-group">
-                <label for="sandi-lama">Kata Sandi Lama</label>
-                <input type="password" id="sandi-lama" name="sandi_lama" class="form-control" placeholder="Masukkan kata sandi lama" required>
-            </div>
-
-            <div class="form-group">
-                <label for="sandi-baru">Kata Sandi Baru</label>
-                <div class="password-input-wrapper">
-                    <input type="password" id="sandi-baru" name="sandi_baru" class="form-control" placeholder="Masukkan kata sandi baru" required>
-                    <i class="fas fa-eye show-password" data-target="sandi-baru"></i>
-                </div>
-                <small class="password-hint">Minimal 8 huruf, terdapat huruf besar</small>
-            </div>
-
-            <div class="form-group">
-                <label for="konfirmasi-sandi">Konfirmasi Kata Sandi Baru</label>
-                <div class="password-input-wrapper">
-                    <input type="password" id="konfirmasi-sandi" name="konfirmasi_sandi" class="form-control" placeholder="Konfirmasi kata sandi baru" required>
-                    <i class="fas fa-eye show-password" data-target="konfirmasi-sandi"></i>
-                </div>
-            </div>
-            
-            <button type="submit" class="submit-button">Simpan</button>
-        </form>
-    </div>
-</div>
+                <div id="ganti-sandi" class="page-content">
+                    <h1>Ganti Kata Sandi</h1>
+                    <div class="form-card">
+                        <form>
+                            <div class="form-group">
+                                <label for="sandi-lama">Kata Sandi Lama</label>
+                                <input type="password" id="sandi-lama" class="form-control" placeholder="Masukkan kata sandi lama">
+                            </div>
 
                             <div class="form-group">
                                 <label for="sandi-baru">Kata Sandi Baru</label>
@@ -454,4 +371,3 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
     </script>
 </body>
 </html>
-
