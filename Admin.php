@@ -231,12 +231,12 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                             
                             <div class="form-group date-field">
                                 <label for="date-from">Dari Tanggal</label>
-                                <input type="text" id="date-from" name="date_from" class="form-control datepicker" placeholder="Pilih Tanggal Mulai" required>
+                                <input type="date" id="date-from" name="date_from" class="form-control datepicker" placeholder="Pilih Tanggal Mulai" required>
                             </div>
 
                             <div class="form-group date-field">
                                 <label for="date-to">Sampai Tanggal</label>
-                                <input type="text" id="date-to" name="date_to" class="form-control datepicker" placeholder="Pilih Tanggal Akhir" required>
+                                <input type="date" id="date-to" name="date_to" class="form-control datepicker" placeholder="Pilih Tanggal Akhir" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary generate-button">
