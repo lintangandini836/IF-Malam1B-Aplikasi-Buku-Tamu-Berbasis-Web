@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #fff;
+}
+
+/* HEADER / NAVBAR */
+.navbar{
+display: flex;
+justify-content: space-between;
+padding: 5px 50px;
+align-items: center;
+background-color: #175586;
+}
+
+.logo{
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.logo img{
+width: 50px;
+height: 50px;
+}
+.logo span{
+font-weight: 700;
+color: white;
+font-size: 18px;
+}
+nav a{
+padding: 0 20px;
+text-decoration: none;
+color: white;
+font-weight: 500;
+}
+nav a:hover{
+color: black;
+}
+
+nav a.active {
+  text-decoration: none;
+}
+
+.login-btn{
+border: 2px solid #004aad;
+padding: 8px 16px;
+cursor: pointer;
+border-radius: 6px;
+color: #004aad;
+background-color: white;
+font-weight: 600;
+}
+.button-primary{
+    background-color: #0fbcf9;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor:default;
+    text-align: left;
+    font-size: 12px;
+    opacity: 0;
+}
+.button-primary:hover{
+background-color: rgb(0, 160, 255);
+}
+
+/* BAGIAN UTAMA */
+.main-section {
+  background: linear-gradient(to right, #175586, #2A99AA);
+  padding: 50px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  gap: 40px;
+  background: rgb(255, 255, 255,0.8);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.image-box img {
+  width: 450px;
+  border-radius: 10px;
+}
+
+.form-box {
+  flex: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+  color: #333;
+}
+
+input, textarea {
+  padding: 10px;
+  border: none;
+  background: #f2f2f2;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.gender {
+  display: flex;
+  gap: 15px;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  background: #3fa9f5;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #2d93e1;
+}
+
+/* FOOTER */
+.footer {
+  background: #0b3c75;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+}
