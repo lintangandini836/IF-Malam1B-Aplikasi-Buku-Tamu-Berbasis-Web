@@ -84,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
 // --- AKHIR PENANGANAN GANTI KATA SANDI ---
 
 ?>
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
