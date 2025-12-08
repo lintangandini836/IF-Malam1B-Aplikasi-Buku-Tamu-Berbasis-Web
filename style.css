@@ -44,7 +44,8 @@ color: black;
 background: linear-gradient(to right, #175586, #2A99AA);
 color: white;
 text-align: left;
-padding: 90px 20px;
+padding: 150px 20px;
+padding-top: 30px;
 }
 .hero h1{
 font-size: 28px;
@@ -72,8 +73,8 @@ background-color: rgb(0, 160, 255);
     display: flex;
     justify-content: space-around;
     gap: 30px;
-    margin: 40px auto;
     flex-wrap: wrap;
+    margin: -50px auto 50px auto
 }
 .menu-item {
     background-color: white;
