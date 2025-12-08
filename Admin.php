@@ -286,7 +286,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
         </div>
     </div>
 </div>
-                <div id="agenda" class="page-content">
+                 <div id="agenda" class="page-content">
                     <h1>Laporan Kunjungan Tamu</h1>
 
                     <div class="report-form-container">
@@ -294,12 +294,12 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                             
                             <div class="form-group date-field">
                                 <label for="date-from">Dari Tanggal</label>
-                                <input type="date" id="date-from" name="date_from" class="datepicker" value="<?php echo date('Y-m-01') ?>" required>
+                                <input type="date" id="date-from" name="date_from" class="form-control datepicker" placeholder="Pilih Tanggal Mulai" required>
                             </div>
 
                             <div class="form-group date-field">
                                 <label for="date-to">Sampai Tanggal</label>
-                                <input type="date" id="date-to" name="date_to" class="datepicker" value="<?php echo date('Y-m-d')?>" required>
+                                <input type="date" id="date-to" name="date_to" class="form-control datepicker" placeholder="Pilih Tanggal Akhir" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary generate-button">
@@ -312,7 +312,6 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                         <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format CSV (Excel).</p>
                     </div>
                 </div>
-                
             </main>
         </div>
         <!--Modal keluar-->
