@@ -223,48 +223,34 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
 
 
                 <div id="ganti-sandi" class="page-content">
-    <h1>Ganti Kata Sandi</h1>
-    <div class="form-card">
-        <form method="POST" action="Admin.php">
-            <input type="hidden" name="change_password" value="1">
+                    <h1>Ganti Kata Sandi</h1>
+                    <div class="form-card">
+                        <form action="ganti_password_process.php" method="POST">
+                            <div class="form-group">
+                                <label for="sandi-lama">Kata Sandi Lama</label>
+                                <input type="password" id="sandi-lama" name="sandi_lama" class="form-control" placeholder="Masukkan kata sandi lama">
+                            </div>
 
-            <?php if (!empty($password_success)): ?>
-                <div style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold;">
-                    <i class="fas fa-check-circle"></i> <?php echo $password_success; ?>
-                </div>
-            <?php endif; ?>
-            <?php if (!empty($password_error)): ?>
-                <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold;">
-                    <i class="fas fa-exclamation-triangle"></i> <?php echo $password_error; ?>
-                </div>
-            <?php endif; ?>
-            
-            <div class="form-group">
-                <label for="sandi-lama">Kata Sandi Lama</label>
-                <input type="password" id="sandi-lama" name="sandi_lama" class="form-control" placeholder="Masukkan kata sandi lama" required>
-            </div>
+                            <div class="form-group">
+                                <label for="sandi-baru">Kata Sandi Baru</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" name="sandi_baru" id="sandi-baru" class="form-control" placeholder="Masukkan kata sandi baru">
+                                    <i class="fas fa-eye show-password" data-target="sandi-baru"></i>
+                                </div>
+                                <small class="password-hint">Minimal 8 huruf, terdapat huruf besar</small>
+                            </div>
 
-            <div class="form-group">
-                <label for="sandi-baru">Kata Sandi Baru</label>
-                <div class="password-input-wrapper">
-                    <input type="password" id="sandi-baru" name="sandi_baru" class="form-control" placeholder="Masukkan kata sandi baru" required>
-                    <i class="fas fa-eye show-password" data-target="sandi-baru"></i>
+                            <div class="form-group">
+                                <div class="password-input-wrapper">
+                                    <input type="password" name="konfirmasi_sandi" id="konfirmasi-sandi" class="form-control" placeholder="konfirmasi kata sandi baru">
+                                    <i class="fas fa-eye show-password" data-target="konfirmasi-sandi"></i>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="submit-button">Simpan</button>
+                        </form>
+                    </div>
                 </div>
-                <small class="password-hint">Minimal 8 huruf, terdapat huruf besar</small>
-            </div>
-
-            <div class="form-group">
-                <label for="konfirmasi-sandi">Konfirmasi Kata Sandi Baru</label>
-                <div class="password-input-wrapper">
-                    <input type="password" id="konfirmasi-sandi" name="konfirmasi_sandi" class="form-control" placeholder="Konfirmasi kata sandi baru" required>
-                    <i class="fas fa-eye show-password" data-target="konfirmasi-sandi"></i>
-                </div>
-            </div>
-            
-            <button type="submit" class="submit-button">Simpan</button>
-        </form>
-    </div>
-</div>
 
                 <div id="dashboard" class="page-content">
     <h1>Data Kunjungan</h1>
