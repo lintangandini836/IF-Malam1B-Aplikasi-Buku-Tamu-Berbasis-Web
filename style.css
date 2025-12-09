@@ -43,16 +43,16 @@ color: black;
 .hero {
 background: linear-gradient(to right, #175586, #2A99AA);
 color: white;
-text-align: left;
+text-align: center;
 padding: 150px 20px;
 padding-top: 30px;
 }
 .hero h1{
-font-size: 28px;
+font-size: 40px;
 margin-bottom: 30px;
 line-height: 1.5;
 font-weight: 800;
-text-align: left;
+text-align: center;
 }
 .button{
     background-color: #0fbcf9;
@@ -62,7 +62,6 @@ text-align: left;
     color: white;
     font-weight: 600;
     cursor: pointer;
-    text-align: left;
     font-size: 12px;
 }
 .button:hover{

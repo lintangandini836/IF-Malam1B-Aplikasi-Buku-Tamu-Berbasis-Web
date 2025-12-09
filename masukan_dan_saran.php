@@ -43,8 +43,6 @@
             <label><input type="radio" name="gender"> Wanita</label>
           </div>
 
-          <label>Alamat</label>
-          <input type="text" placeholder="Masukkan alamat">
 
           <label>Email</label>
           <input type="email" placeholder="Masukkan email">

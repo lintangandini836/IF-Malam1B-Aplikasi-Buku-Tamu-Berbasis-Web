@@ -34,7 +34,7 @@
         <section class="hero">
             <h1>Selamat Datang Di Website Tata Usaha<br>Politeknik Negeri Batam</h1>
             <div class="hero-buttons">
-            <button class="button" data-bs-toggle="modal" data-bs-target="#tambahDataModal">Buat Data Kunjungan</button></a>
+            <button style="font-size: 18px;font-weight: 500;" class="button" data-bs-toggle="modal" data-bs-target="#tambahDataModal">Buat Data Kunjungan</button></a>
             </div>
         </section>
 
@@ -106,9 +106,7 @@
                      
                      <label for="Password">Kata Sandi:</label>
                      <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
-                     <br>
-                     <br>
-                     <a href="" >Lupa Password?</a>
+
                      
                      <button class="button_login" type="submit">Login</button>
                      <div class="modal-dialog">
