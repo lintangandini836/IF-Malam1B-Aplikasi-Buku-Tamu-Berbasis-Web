@@ -34,56 +34,7 @@ $sql_month = "SELECT COUNT(*) AS count_month FROM data_pengunjung
 $result_month = mysqli_query($conn, $sql_month);
 $row_month = mysqli_fetch_assoc($result_month);
 $count_month = $row_month['count_month'];
-// --- PENANGANAN GANTI KATA SANDI ---
-$password_error = ''; // Variabel untuk menyimpan pesan error
-$password_success = ''; // Variabel untuk menyimpan pesan sukses
 
-// Pastikan id_admin tersedia di sesi
-$id_admin = isset($_SESSION['id_admin']) ? $_SESSION['id_admin'] : ''; 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && !empty($id_admin)) {
-    $sandi_lama = mysqli_real_escape_string($conn, $_POST['sandi_lama']);
-    $sandi_baru = mysqli_real_escape_string($conn, $_POST['sandi_baru']);
-    $konfirmasi_sandi = mysqli_real_escape_string($conn, $_POST['konfirmasi_sandi']);
-
-    // 1. Ambil kata sandi lama dari database
-    $sql_admin = "SELECT password FROM data_admin WHERE id = '$id_admin'";
-    $result_admin = mysqli_query($conn, $sql_admin);
-    
-    if (mysqli_num_rows($result_admin) > 0) {
-        $row_admin = mysqli_fetch_assoc($result_admin);
-        $hashed_password = $row_admin['password'];
-
-        // 2. Verifikasi Kata Sandi Lama
-        if (!password_verify($sandi_lama, $hashed_password)) {
-            $password_error = "Kata Sandi Lama Salah.";
-        } 
-        // 3. Validasi Kata Sandi Baru
-        else if (strlen($sandi_baru) < 8) {
-            $password_error = "Kata Sandi Baru harus minimal 8 karakter.";
-        }
-        else if (!preg_match('/[A-Z]/', $sandi_baru)) {
-            $password_error = "Kata Sandi Baru harus mengandung setidaknya satu huruf kapital.";
-        }
-        else if ($sandi_baru !== $konfirmasi_sandi) {
-            $password_error = "Kata Sandi Baru dan Konfirmasi Kata Sandi tidak cocok.";
-        } 
-        else {
-            // 4. Update Kata Sandi Baru ke Database
-            $new_hashed_password = password_hash($sandi_baru, PASSWORD_DEFAULT);
-            $sql_update = "UPDATE data_admin SET password = '$new_hashed_password' WHERE id = '$id_admin'";
-            
-            if (mysqli_query($conn, $sql_update)) {
-                $password_success = "Kata Sandi berhasil diperbarui!";
-            } else {
-                $password_error = "Gagal memperbarui Kata Sandi: " . mysqli_error($conn);
-            }
-        }
-    } else {
-        $password_error = "Admin tidak ditemukan.";
-    }
-}
-// --- AKHIR PENANGANAN GANTI KATA SANDI ---
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -118,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
                     <li data-page="buku-tamu" class="active"><i class="fas fa-book"></i> Buku Tamu</li>
                     <li data-page="agenda"><i class="fa-solid fa-file"></i> Laporan</li>
                     <li data-page="ganti-sandi"><i class="fas fa-lock"></i> Ganti kata sandi</li>
-                    <button type="button" style="background-color: rgba(0, 0, 0, 0);border: none; 
-                    color:#f4f4f4;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#logout"><li style="padding-right: 150px;"><i class="fas fa-sign-out-alt"></i> Log Out </li></button>
+                    <li data-bs-toggle="modal" data-bs-target="#logout"><i class="fas fa-sign-out-alt"></i>Keluar</li>
+                </ul>
             </nav>
 
             <main class="content-area">
@@ -247,7 +198,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                                 </div>
                             </div>
                             
-                            <button type="submit" class="submit-button">Simpn</button>
+                            <button type="submit" class="submit-button">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -270,9 +221,10 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
             <p class="number"><?php echo $count_month; ?></p>
             <i class="fas fa-list icon"></i>
         </div>
-    </div>
+
 </div>
-                 <div id="agenda" class="page-content">
+                </div>
+                <div id="agenda" class="page-content">
                     <h1>Laporan Kunjungan Tamu</h1>
 
                     <div class="report-form-container">
@@ -280,12 +232,12 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                             
                             <div class="form-group date-field">
                                 <label for="date-from">Dari Tanggal</label>
-                                <input type="date" id="date-from" name="date_from" class="form-control datepicker" placeholder="Pilih Tanggal Mulai" required>
+                                <input type="date" id="date-from" name="date_from" class="datepicker" value="<?php echo date('Y-m-01') ?>" required>
                             </div>
 
                             <div class="form-group date-field">
                                 <label for="date-to">Sampai Tanggal</label>
-                                <input type="date" id="date-to" name="date_to" class="form-control datepicker" placeholder="Pilih Tanggal Akhir" required>
+                                <input type="date" id="date-to" name="date_to" class="datepicker" value="<?php echo date('Y-m-d')?>" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary generate-button">
@@ -298,6 +250,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                         <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format CSV (Excel).</p>
                     </div>
                 </div>
+                
             </main>
         </div>
         <!--Modal keluar-->
