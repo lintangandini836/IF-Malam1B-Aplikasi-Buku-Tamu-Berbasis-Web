@@ -34,6 +34,12 @@ $sql_month = "SELECT COUNT(*) AS count_month FROM data_pengunjung
 $result_month = mysqli_query($conn, $sql_month);
 $row_month = mysqli_fetch_assoc($result_month);
 $count_month = $row_month['count_month'];
+// 4. Statistik Total Seluruh Tamu
+$sql_total_all = "SELECT COUNT(*) AS count_total_all FROM data_pengunjung";
+$result_total_all = mysqli_query($conn, $sql_total_all);
+$row_total_all = mysqli_fetch_assoc($result_total_all);
+$count_total_all = $row_total_all['count_total_all'];
+
 // --- PENANGANAN GANTI KATA SANDI ---
 $password_error = ''; // Variabel untuk menyimpan pesan error
 $password_success = ''; // Variabel untuk menyimpan pesan sukses
@@ -118,8 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
                     <li data-page="buku-tamu" class="active"><i class="fas fa-book"></i> Buku Tamu</li>
                     <li data-page="agenda"><i class="fa-solid fa-file"></i> Laporan</li>
                     <li data-page="ganti-sandi"><i class="fas fa-lock"></i> Ganti kata sandi</li>
-                    <button type="button" style="background-color: rgba(0, 0, 0, 0);border: none; 
-                    color:#f4f4f4;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#logout"><li style="padding-right: 150px;"><i class="fas fa-sign-out-alt"></i> Log Out </li></button>
+                    <li data-bs-target="#logout" data-bs-toggle="modal"><i class="fas fa-sign-out-alt"></i> Keluar </li>
             </nav>
 
             <main class="content-area">
@@ -137,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
                             </form>
                         </div>
                     </div>
-                    <div class="scroll" style="height: 270px; overflow:scroll;">
+                    <div class="scroll" style="height: 290px; overflow:scroll;">
                     <div class="table-container">
                         <table>
                             <thead>
@@ -185,9 +190,9 @@ while ($data = mysqli_fetch_assoc($query)) {
 ?>
 <tr>
 <td><?php echo $data['tanggal']?></td>
-<td><?php echo $data['nama']; ?></td>
-<td><?php echo $data['instansi']; ?></td>
-<td><?php echo $data['tujuan']; ?></td>
+<td title="<?php echo $data['nama']; ?>"><?php echo $data['nama']; ?></td>
+<td title="<?php echo $data['instansi']; ?>"><?php echo $data['instansi']; ?></td>
+<td title="<?php echo $data['tujuan']; ?>"><?php echo $data['tujuan']; ?></td>
 <td><?php echo $data['kedatangan']; ?></td>
 <td><?php echo $data['kepulangan']; ?></td>
 <td>
@@ -255,6 +260,10 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                 <div id="dashboard" class="page-content">
     <h1>Data Kunjungan</h1>
     <div class="dashboard">
+        <div class="card">
+            <h3>Total Seluruh <br>Tamu</h3>
+            <p class="number"><?php echo $count_total_all; ?></p>
+            <i class="fas fa-list icon"></i> </div>
         <div class="card">
             <h3>Tamu <br>hari ini</h3>
             <p class="number"><?php echo $count_today; ?></p>

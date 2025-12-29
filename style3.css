@@ -236,14 +236,6 @@ table th {
     margin-top: 15px;
 }
 
-.pagination button {
-    padding: 5px 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
 .data-info {
     color: #666;
 }
@@ -402,4 +394,37 @@ table th {
 }
 .report-form-container{
     background-color:#fff;
+}
+
+/* Aturan umum untuk sel tabel agar teks tidak meluap */
+table td {
+    max-width: 150px;       /* Tentukan batas lebar maksimal kolom */
+    white-space: nowrap;    /* Mencegah teks turun ke baris baru */
+    overflow: hidden;       /* Menyembunyikan teks yang meluap */
+    text-overflow: ellipsis; /* Mengubah teks yang meluap menjadi titik-titik (...) */
+}
+
+/* Jika Anda ingin memberikan efek titik-titik hanya pada kolom tertentu */
+table td:nth-child(2), /* Kolom Nama Lengkap */
+table td:nth-child(3), /* Kolom Asal Instansi */
+table td:nth-child(4)  /* Kolom Tujuan */ {
+    max-width: 200px;      /* Anda bisa menyesuaikan lebar per kolom */
+}
+
+/* Efek hover untuk list saran Bootstrap */
+.list-group-item {
+    transition: background-color 0.2s;
+    font-size: 14px;
+    color: #333;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa !important;
+    cursor: pointer;
+}
+
+/* Pastikan container dashboard tidak memotong shadow card */
+.page-content {
+    overflow-x: hidden;
+    padding-bottom: 50px;
 }
