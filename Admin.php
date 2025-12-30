@@ -285,7 +285,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
   <div class="card-header fs-5 bg-secondary text-white">
     Pesan Masukan Dan Saran
   </div>
-  <ul class="list-group list-group-flush" style="height: 250px; overflow-y: scroll;">
+  <ul class="list-group list-group-flush" style="height: 190px; overflow-y: scroll;">
     <?php
     // Query mengambil data saran terbaru
     $sql_saran = "SELECT * FROM saran ORDER BY id DESC"; 
