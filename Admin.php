@@ -252,7 +252,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                                 </div>
                             </div>
                             
-                            <button type="submit" class="submit-button">Simpn</button>
+                            <button type="submit" class="submit-button">Simpan</button>
                         </form>
                     </div>
                 </div>
