@@ -257,13 +257,9 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                     </div>
                 </div>
 
-                <div id="dashboard" class="page-content">
+               <div id="dashboard" class="page-content">
     <h1>Data Kunjungan</h1>
     <div class="dashboard">
-        <div class="card">
-            <h3>Total Seluruh <br>Tamu</h3>
-            <p class="number"><?php echo $count_total_all; ?></p>
-            <i class="fas fa-list icon"></i> </div>
         <div class="card">
             <h3>Tamu <br>hari ini</h3>
             <p class="number"><?php echo $count_today; ?></p>
@@ -279,7 +275,12 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
             <p class="number"><?php echo $count_month; ?></p>
             <i class="fas fa-list icon"></i>
         </div>
-    </div>
+                <div class="card">
+            <h3>Total data Tamu</h3>
+            <p class="number"><?php echo $count_total_all; ?></p>
+            <i class="fas fa-list icon"></i>
+        </div>
+</div>
 <div class="card mt-4 ms-4" style="width: 57rem; border: 1px solid #1e242dff;">
   <div class="card-header fs-5 bg-secondary text-white">
     Pesan Masukan Dan Saran
@@ -311,7 +312,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
     ?>
   </ul>
 </div>
-</div>
+                </div>
                  <div id="agenda" class="page-content">
                     <h1>Laporan Kunjungan Tamu</h1>
 
