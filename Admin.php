@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
                             </form>
                         </div>
                     </div>
-                    <div class="scroll" style="height: 290px; overflow:scroll;">
+                    <div class="scroll" style="height: 270px; overflow:scroll;">
                     <div class="table-container">
                         <table>
                             <thead>
@@ -280,6 +280,37 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
             <i class="fas fa-list icon"></i>
         </div>
     </div>
+<div class="card mt-4 ms-4" style="width: 57rem; border: 1px solid #1e242dff;">
+  <div class="card-header fs-5 bg-secondary text-white">
+    Pesan Masukan Dan Saran
+  </div>
+  <ul class="list-group list-group-flush" style="height: 250px; overflow-y: scroll;">
+    <?php
+    // Query mengambil data saran terbaru
+    $sql_saran = "SELECT * FROM saran ORDER BY id DESC"; 
+    $query_saran = mysqli_query($conn, $sql_saran);
+
+    if (mysqli_num_rows($query_saran) > 0) {
+        while ($row = mysqli_fetch_assoc($query_saran)) {
+            ?>
+            <li class="list-group-item list-group-item-action" 
+                data-bs-toggle="modal" 
+                data-bs-target="#modalDetailSaran"
+                data-nama="<?php echo htmlspecialchars($row['nama']); ?>"
+                data-jk="<?php echo htmlspecialchars($row['jenis']); ?>"
+                data-email="<?php echo htmlspecialchars($row['email']); ?>"
+                data-pesan="<?php echo htmlspecialchars($row['masukan_saran']); ?>">
+                </i> <?php echo htmlspecialchars($row['nama']); ?>
+                - <span class="text-body-secondary"> <?php echo htmlspecialchars($row['email']); ?></span>
+            </li>
+            <?php
+        }
+    } else {
+        echo "<li class='list-group-item text-center text-muted'>Tidak ada saran</li>";
+    }
+    ?>
+  </ul>
+</div>
 </div>
                  <div id="agenda" class="page-content">
                     <h1>Laporan Kunjungan Tamu</h1>
@@ -396,6 +427,31 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
     </div>
   </div>
 </div>
+<!--Modal Buat masukan dan saran-->
+<div class="modal fade" id="modalDetailSaran" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detail Masukan & Saran</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <strong>Dari: </strong> <span id="view-nama"></span><br>
+        <strong>Jenis Kelamin: </strong> <span id="view-jk"></span><br>
+        <strong>Email: </strong> <span id="view-email"></span>
+        <hr>
+        <p><strong>Masukan dan Saran: </strong></p>
+        <div class="p-3 bg-light rounded shadow-sm">
+            <i class="fas fa-quote-left text-primary me-2"></i>
+            <span id="view-pesan"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
 
         <footer class="footer">
             Copyright © **buku kunjungan**. All right reserved.
@@ -425,6 +481,26 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
       });
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const modalSaran = document.getElementById('modalDetailSaran');
+    modalSaran.addEventListener('show.bs.modal', function (event) {
+        // Tombol (list) yang memicu modal
+        const button = event.relatedTarget;
+        
+        // Ambil data dari atribut data-*
+        const nama = button.getAttribute('data-nama');
+        const jk = button.getAttribute('data-jk');
+        const email = button.getAttribute('data-email');
+        const pesan = button.getAttribute('data-pesan');
+
+        // Update isi modal
+        document.getElementById('view-nama').textContent = nama;
+        document.getElementById('view-jk').textContent = jk;
+        document.getElementById('view-email').textContent = email;
+        document.getElementById('view-pesan').textContent = pesan;
+    });
+});
     </script>
 </body>
 </html>

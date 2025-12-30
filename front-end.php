@@ -160,7 +160,7 @@
             </div>
             <div class="menu-item">
                 <i class="fa-solid fa-folder"></i>
-                <p>Perizinan Absensi</p>
+                <p>Pengurusan Absensi</p>
             </div>
             <div class="menu-item">
                 <i class="fa-solid fa-message"></i>
@@ -205,26 +205,26 @@
             <div class="form-box">
                 <h3 class="mb-4 text-center">Masukan & Saran</h3>
                 <form action="saran.php" method="POST">
-                    <label class="mb-3 fw-bold">Nama Lengkap:</label>
-                    <input type="text" name="nama" placeholder="Masukkan nama" required>
-                    
-                    <div class="mb-3">
-                    <label for="jenisKelamin" class="mb-3 fw-bold">Jenis Kelamin :</label>
-                    <select class="form-select" id="jenisKelamin" name="jenis_kelamin">
-                    <option selected disabled>Pilih Jenis Kelamin</option>
-                    <option value="Pria">Pria</option>
-                    <option value="Wanita">Wanita</option>
-                    </select>
-                    </div>
+    <label class="mb-3 fw-bold">Nama Lengkap:</label>
+    <input type="text" name="nama" placeholder="Masukkan nama" required>
+    
+    <div class="mb-3">
+        <label for="jenisKelamin" class="mb-3 fw-bold">Jenis Kelamin :</label>
+        <select class="form-select" id="jenisKelamin" name="jenis" required>
+            <option selected disabled>Pilih Jenis Kelamin</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Wanita">Wanita</option>
+        </select>
+    </div>
 
-                    <label class="mb-3 fw-bold">E-mail:</label>
-                    <input type="email" placeholder="email@contoh.com" required>
+    <label class="mb-3 fw-bold">E-mail:</label>
+    <input type="email" name="email" placeholder="email@contoh.com" required>
 
-                    <label class="mb-3 fw-bold">Saran Anda:</label>
-                    <textarea placeholder="Tuliskan masukan di sini..." rows="4"></textarea>
+    <label class="mb-3 fw-bold">Saran Anda:</label>
+    <textarea name="masukan_saran" placeholder="Tuliskan masukan di sini..." rows="4" required></textarea>
 
-                    <button type="submit" class="btn-submit">Kirim</button>
-                </form>
+    <button type="submit" class="btn-submit">Kirim</button>
+</form>
             </div>
         </div>
     </section>

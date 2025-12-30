@@ -20,7 +20,7 @@ if($cek > 0){
 
     $_SESSION['logged_in'] = TRUE;
     $_SESSION['nama_admin'] = $data_admin['nama_admin'];
-    $_SESSION['id_admin'] = $row['id'];
+    $_SESSION['id_admin'] = ['id'];
     echo "<script>
         alert('Login Berhasil');
         window.location.href= 'Admin.php';
