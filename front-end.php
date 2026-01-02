@@ -47,7 +47,30 @@
             padding: 130px 20px;
             padding-top: 50px;
         }
-        .hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 30px;}
+        .hero h1 { 
+            font-size: calc(1.5rem + 1.5vw); 
+            font-weight: 800; 
+            margin-bottom: 30px;
+        }
+
+        /* Memastikan spasi menu-section tidak terlalu besar di mobile */
+        @media (max-width: 768px) {
+            .hero { padding: 80px 20px; }
+            .menu-section { gap: 20px; margin-top: -30px; }
+            .navbar-custom { padding: 10px 15px !important; }
+
+            /* Footer agar tidak memanjang ke samping */
+            .footer div { 
+                flex-direction: column; 
+                gap: 10px;
+            }
+        }
+
+        /* Memastikan gambar masukan tidak muncul atau mengecil di mobile */
+        @media (max-width: 992px) {
+        .masukan-container { flex-direction: column; }
+        .masukan-image { display: none; } /* Sembunyikan gambar di HP agar fokus ke form */
+        }
         .btn-action {
             background-color: #0fbcf9;
             border: none;
@@ -128,22 +151,27 @@
 </head>
 <body>
 
-    <header class="navbar-custom">
-        <div class="logo">
-            <a href="front-end.php" style="text-decoration:none;">
-                <img src="logo kampus.png" alt="Polibatam">
-                <span>Polibatam</span>
-            </a>
-        </div>
-        <nav>
-            <a href="#beranda">Beranda</a>
-            <a href="#tentang">Tentang</a>
-            <a href="#masukan">Masukan dan Saran</a>
-        </nav>
-        <button class="btn-login-top" data-bs-toggle="modal" data-bs-target="#loginAdminModal">
-            Login Sebagai Admin
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid px-lg-5">
+        <a class="navbar-brand logo" href="#">
+            <img src="logo kampus.png" alt="Polibatam">
+            <span>Polibatam</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
         </button>
-    </header>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link text-white" href="#beranda">Beranda</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#tentang">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#masukan">Masukan dan Saran</a></li>
+            </ul>
+            <button class="btn-login-top mt-2 mt-lg-0" data-bs-toggle="modal" data-bs-target="#loginAdminModal">
+                Login Sebagai Admin
+            </button>
+        </div>
+    </div>
+</nav>
 
     <section id="beranda">
         <div class="hero">

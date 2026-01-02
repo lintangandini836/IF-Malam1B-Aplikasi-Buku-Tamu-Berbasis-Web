@@ -106,15 +106,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
 
     <div class="containers">
         <header class="header">
-            <div class="header-left">
-                <img src="logo kampus.png" width="30" alt="Logo PoliBatam" class="logo">
-                <span class="app-name">PoliBatam</span>
-            </div>
-            <div class="header-right">
+    <div class="header-left">
+        <button id="toggleSidebar" class="btn btn-sm text-white d-md-none me-2">
+            <i class="fas fa-bars menu-toggle"></i>
+        </button>
+        <img src="logo kampus.png" width="30" alt="Logo PoliBatam" class="logo">
+        <span class="app-name">PoliBatam</span>
+    </div>
+    <div class="header-right">
                 <i class="fas fa-user-circle"></i>
-                <span>Selamat Datang, <?php echo ($nama_admin_login); ?></span>
+                <span><?php echo ($nama_admin_login); ?></span>
             </div>
-        </header>
+    </header>
 
         <div class="main-wrapper">
             <nav class="sidebar">

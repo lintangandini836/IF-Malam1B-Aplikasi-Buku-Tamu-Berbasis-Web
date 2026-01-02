@@ -1,3 +1,114 @@
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-wrapper {
+        flex-direction: column;
+    }
+    .menu-toggle {
+    position: relative;
+    z-index: 1100; /* HARUS lebih besar dari sidebar */
+}
+
+}
+.menu-toggle {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        color: white;
+    }
+}
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .dashboard .card {
+        width: 90%;
+    }
+}
+@media (max-width: 768px) {
+    table {
+        min-width: 600px;
+    }
+}
+@media (max-width: 768px) {
+    .container-area {
+        padding: 15px;
+    }
+
+    .form-card {
+        padding: 20px;
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    body {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+}
+@media (max-width: 768px) {
+    .content-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .detail-box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-area {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .main-wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard .card {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .dashboard .card .number {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
 /* Reset Dasar */
 * {
     margin: 0;
