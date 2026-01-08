@@ -34,48 +34,70 @@ if (mysqli_num_rows($result) == 0) {
     die("Tidak ada data kunjungan untuk rentang tanggal tersebut.");
 }
 
-// --- 3. Header untuk File CSV ---
 
-// Nama file yang akan diunduh
-$filename = "Laporan_Kunjungan_Polibatam_" . $date_from . "_to_" . $date_to . ".csv";
+// Ganti bagian header Anda dengan ini
+$filename = "Laporan_Kunjungan_Polibatam_" . $date_from . "_to_" . $date_to . ".xls";
 
-// Mengatur header agar browser tahu bahwa ini adalah file yang harus diunduh
-header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename="' . $filename . '"');
+header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+header("Content-Disposition: attachment; filename=\"$filename\"");
+header("Pragma: no-cache");
+header("Expires: 0");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");;
 
-// Membuka output PHP sebagai file stream
-$output = fopen('php://output', 'w');
+// --- 4. Mulai Output Tabel ---
+?>
+<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+<style>
+    .title {
+        font-size: 16pt;
+        font-weight: bold;
+        text-align: center;
+    }
+    .table-header {
+        background-color: #e0e0e0;
+        font-weight: bold;
+        border: 1px solid #000;
+    }
+    td {
+        border: 1px solid #000;
+        vertical-align: top;
+    }
+</style>
 
-// Agar data CSV di Excel terbaca dengan baik, terutama karakter non-ASCII, 
-// tambahkan BOM (Byte Order Mark) untuk UTF-8.
-fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+<table>
+    <tr>
+        <th colspan="6" class="title">DATA KUNJUNGAN BUKU TAMU</th>
+    </tr>
+    <tr>
+        <th colspan="6" style="text-align: center;">Periode: <?php echo $date_from; ?> s/d <?php echo $date_to; ?></th>
+    </tr>
+    <tr><th colspan="6"></th></tr> <thead>
+        <tr>
+            <th class="table-header">Tanggal</th>
+            <th class="table-header">Nama Lengkap</th>
+            <th class="table-header">Asal Instansi</th>
+            <th class="table-header">Tujuan Kunjungan</th>
+            <th class="table-header">Waktu Kedatangan</th>
+            <th class="table-header">Waktu Kepulangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // --- 5. Tulis Data dari Database ---
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['nama']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['instansi']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['tujuan']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['kedatangan']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['kepulangan']) . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody>
+</table>
 
-// --- 4. Tulis Header Kolom (Judul Tabel) ---
-
-// Definisikan header kolom (sesuaikan dengan urutan kolom di query SQL)
-$header = array(
-    'Tanggal', 
-    'Nama Lengkap', 
-    'Asal Instansi', 
-    'Tujuan Kunjungan', 
-    'Waktu Kedatangan', 
-    'Waktu Kepulangan'
-);
-
-// Tulis header ke file CSV
-fputcsv($output, $header, ';'); // Menggunakan titik koma (;) sebagai delimiter agar mudah dibuka di Excel
-
-// --- 5. Tulis Data ke File CSV ---
-
-// Loop melalui hasil query dan tulis setiap baris data
-while ($row = mysqli_fetch_assoc($result)) {
-    // fputcsv memerlukan array nilai
-    fputcsv($output, $row, ';');
-}
-
-// Tutup file stream
-fclose($output);
-
-// Hentikan eksekusi script setelah selesai menggenerate file
+<?php
 exit();
 ?>

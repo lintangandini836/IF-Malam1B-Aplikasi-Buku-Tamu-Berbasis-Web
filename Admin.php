@@ -99,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
     <title>Sistem Pencatatan Kunjungan PoliBatam</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style3.css"> 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="logo kampus.png" type="jpg/png">
 </head>
@@ -133,21 +134,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password']) && 
             <main class="content-area">
                 
                 <div id="buku-tamu" class="page-content active-page">
+                    <div class="scroll" style="height: 459px; overflow-y:scroll;">
                     <h1>Sistem Pencatatan Kunjungan Polibatam</h1>
                     <div class="data-actions">
                         <button class="add-button" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i class="fas fa-plus"></i> Tambah Data</button>
                         <div class="search-box">
-                            <form method="GET" action="Admin.php" style="display: flex;">
-                                <input type="search" placeholder="Search:" name="search_query" value="<?php echo isset($_GET['search_query']) ? htmlspecialchars($_GET['search_query']) : ''; ?>">
-                                <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
-                                    <i class="fas fa-search"></i>
                                 </button>
                             </form>
                         </div>
                     </div>
-                    <div class="scroll" style="height: 270px; overflow:scroll;">
                     <div class="table-container">
-                        <table>
+                        <table id="tabelTamu" class="table" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
@@ -193,13 +190,14 @@ while ($data = mysqli_fetch_assoc($query)) {
 ?>
 <tr>
 <td><?php echo $data['tanggal']?></td>
-<td title="<?php echo $data['nama']; ?>"><?php echo $data['nama']; ?></td>
-<td title="<?php echo $data['instansi']; ?>"><?php echo $data['instansi']; ?></td>
-<td title="<?php echo $data['tujuan']; ?>"><?php echo $data['tujuan']; ?></td>
+<td class="text-truncate-custom" title="<?php echo $data['nama']; ?>"><?php echo $data['nama']; ?></td>
+<td class="text-truncate-custom" title="<?php echo $data['instansi']; ?>"><?php echo $data['instansi']; ?></td>
+<td class="text-truncate-custom" title="<?php echo $data['tujuan']; ?>"><?php echo $data['tujuan']; ?></td>
 <td><?php echo $data['kedatangan']; ?></td>
 <td><?php echo $data['kepulangan']; ?></td>
 <td>
-<button class="btn btn-success btn-sm  edit-button" style="padding: 2px 7px; padding-top: 2px; "
+    <div class="aksi">
+<a class="btn btn-success action-btn btn-sm edit-button"
 data-bs-target="#edit_data"
 data-bs-toggle="modal"
 data-id="<?php echo $data['id'];?>"
@@ -208,12 +206,13 @@ data-instansi="<?php echo $data['instansi'];?>"
 data-tujuan="<?php echo $data['tujuan'];?>"
 data-kedatangan="<?php echo $data['kedatangan'];?>"
 data-kepulangan="<?php echo $data['kepulangan'];?>">
-<i class="fas fa-edit"></i></button>
+<i class="fas fa-edit"></i></a>
 <a href="hapus_data.php?id=<?php echo $data['id']; ?>" 
        onclick="return confirm('Apakah Anda yakin ingin menghapus data <?php echo htmlspecialchars($data['nama']); ?>?');" 
-       class="action-btn delete-btn" title="Hapus Data">
+       class="btn btn-danger btn-sm action-btn" title="Hapus Data">
         <i class="fas fa-trash-alt"></i>
     </a>
+    </div>
 </td>
 </tr>
 <?php
@@ -284,11 +283,11 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
             <i class="fas fa-list icon"></i>
         </div>
 </div>
-<div class="card mt-4 ms-4" style="width: 57rem; border: 1px solid #1e242dff;">
+<div class="card mt-4 ms-4" style="width: 95%; border: 1px solid #1e242dff;">
   <div class="card-header fs-5 bg-secondary text-white">
     Pesan Masukan Dan Saran
   </div>
-  <ul class="list-group list-group-flush" style="height: 190px; overflow-y: scroll;">
+  <ul class="list-group list-group-flush" style="height: 190px; overflow: scroll;">
     <?php
     // Query mengambil data saran terbaru
     $sql_saran = "SELECT * FROM saran ORDER BY id DESC"; 
@@ -339,7 +338,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                     </div>
                     
                     <div id="report-info" class="mt-4">
-                        <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format CSV (Excel).</p>
+                        <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format Xls (Excel).</p>
                     </div>
                 </div>
             </main>
@@ -464,6 +463,20 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#tabelTamu').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json" // Mengubah ke Bahasa Indonesia
+        },
+        "order": [[0, "desc"]] // Mengurutkan berdasarkan kolom pertama (Tanggal) secara terbaru
+    });
+});
+</script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     const editButtons =document.querySelectorAll('.edit-button');

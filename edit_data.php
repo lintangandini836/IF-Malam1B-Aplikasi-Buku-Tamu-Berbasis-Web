@@ -1,6 +1,12 @@
 <?php
-
+session_start();
 include("server.php");
+
+// Tambahkan proteksi ini
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== TRUE) {
+    header("Location: front-end.php");
+    exit();
+}
 $id = $_POST["id"];
 $nama = $_POST["nama"];
 $instansi = $_POST["instansi"];
@@ -14,7 +20,7 @@ if (!$result) {
 }
 else{
 
-    header("location: admin.php");
+    header("location: Admin.php");
 }
 
 

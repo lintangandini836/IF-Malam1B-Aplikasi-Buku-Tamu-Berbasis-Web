@@ -324,21 +324,9 @@ table th {
 }
 
 .action-btn {
-    padding: 5px 10px;
-    margin-right: 5px;
-    border: none;
-    color: white;
-    border-radius: 3px;
-    cursor: pointer;
+font-size: 10px;
 }
 
-.edit-btn {
-    background-color: #28a745; /* Hijau */
-}
-
-.delete-btn {
-    background-color: #dc3545; /* Merah */
-}
 
 .pagination {
     display: flex;
@@ -394,7 +382,7 @@ table th {
   top: 15px;
   right: 15px;
 }
-/* --- PAGE AGENDA --- */
+/* --- PAGE CETAK LAPORAN --- */
 .wrapper {
     flex: 1;
     display: flex;
@@ -513,6 +501,8 @@ table th {
 }
 .report-form-container{
     background-color:#fff;
+    padding: 8px;
+    border-radius: 8px;
 }
 /* Efek Hover untuk List Pesan */
 .list-group-item-action {
@@ -528,4 +518,10 @@ table th {
     padding-left: 25px; /* Efek bergeser sedikit */
     border-left: 5px solid #0b121c;
     color: #0011f8;
+}
+.text-truncate-custom {
+max-width: 120px;    /* Tentukan batas lebar kolom */
+white-space: nowrap; /* Mencegah teks turun ke baris baru */
+overflow: hidden;    /* Menyembunyikan teks yang meluap */
+text-overflow: ellipsis; /* Mengubah teks yang terpotong menjadi ... */
 }
