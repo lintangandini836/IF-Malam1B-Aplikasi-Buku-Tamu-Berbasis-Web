@@ -284,35 +284,44 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
         </div>
 </div>
 <div class="card mt-4 ms-4" style="width: 95%; border: 1px solid #1e242dff;">
-  <div class="card-header fs-5 bg-secondary text-white">
-    Pesan Masukan Dan Saran
-  </div>
-  <ul class="list-group list-group-flush" style="height: 190px; overflow: scroll;">
-    <?php
-    // Query mengambil data saran terbaru
-    $sql_saran = "SELECT * FROM saran ORDER BY id DESC"; 
-    $query_saran = mysqli_query($conn, $sql_saran);
+    <div class="card-header fs-5 bg-secondary text-white d-flex justify-content-between align-items-center">
+        Pesan Masukan Dan Saran
+        <button type="submit" form="formHapusSaran" class="btn btn-danger btn-sm" id="btnHapusSaran" onclick="return confirm('Hapus pesan yang dipilih?')" style="display:none;">
+            <i class="fas fa-trash"></i> Hapus Terpilih
+        </button>
+    </div>
+    
+    <form id="formHapusSaran" action="hapus_saran.php" method="POST">
+        <ul class="list-group list-group-flush" style="height: 190px; overflow: scroll;">
+            <?php
+$sql_saran = "SELECT * FROM saran ORDER BY id DESC"; 
+$query_saran = mysqli_query($conn, $sql_saran);
 
-    if (mysqli_num_rows($query_saran) > 0) {
-        while ($row = mysqli_fetch_assoc($query_saran)) {
-            ?>
-            <li class="list-group-item list-group-item-action" 
-                data-bs-toggle="modal" 
-                data-bs-target="#modalDetailSaran"
+if (mysqli_num_rows($query_saran) > 0) {
+    // Perbaikan: Panggil fetch cukup satu kali saja
+    while ($row = mysqli_fetch_assoc($query_saran)) {
+        ?>
+        <li class="list-group-item list-group-item-action d-flex align-items-center">
+            <input type="checkbox" name="id_saran[]" value="<?php echo $row['id']; ?>" class="me-3 check-saran">
+            
+            <div class="flex-grow-1" data-bs-toggle="modal" data-bs-target="#modalDetailSaran"
+                style="cursor:pointer;"
                 data-nama="<?php echo htmlspecialchars($row['nama']); ?>"
                 data-jk="<?php echo htmlspecialchars($row['jenis']); ?>"
                 data-email="<?php echo htmlspecialchars($row['email']); ?>"
                 data-pesan="<?php echo htmlspecialchars($row['masukan_saran']); ?>">
-                </i> <?php echo htmlspecialchars($row['nama']); ?>
-                - <span class="text-body-secondary"> <?php echo htmlspecialchars($row['email']); ?></span>
-            </li>
-            <?php
-        }
-    } else {
-        echo "<li class='list-group-item text-center text-muted'>Tidak ada saran</li>";
+                <strong><?php echo htmlspecialchars($row['nama']); ?></strong>
+                - <span class="text-body-secondary"><?php echo htmlspecialchars($row['email']); ?></span>
+            </div>
+        </li>
+        <?php
     }
-    ?>
-  </ul>
+} else {
+    echo "<li class='list-group-item text-center text-muted'>Tidak ada saran</li>";
+}
+?>
+        </ul>
+    </form>
 </div>
                 </div>
                  <div id="agenda" class="page-content">
@@ -338,7 +347,7 @@ data-kepulangan="<?php echo $data['kepulangan'];?>">
                     </div>
                     
                     <div id="report-info" class="mt-4">
-                        <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format Xls (Excel).</p>
+                        <p>Pilih rentang tanggal di atas dan klik **Cetak Laporan** untuk mengunduh data kunjungan dalam format .xls (Excel).</p>
                     </div>
                 </div>
             </main>
@@ -518,6 +527,21 @@ $(document).ready(function() {
         document.getElementById('view-pesan').textContent = pesan;
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.check-saran');
+    const btnHapus = document.getElementById('btnHapusSaran');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // Periksa apakah ada minimal satu checkbox yang dicentang
+            const anyChecked = Array.from(checkboxes).some(c => c.checked);
+            // Tampilkan tombol jika ada yang dicentang, sembunyikan jika tidak
+            btnHapus.style.display = anyChecked ? 'block' : 'none';
+        });
+    });
+});
     </script>
+    
 </body>
 </html>
